@@ -13,6 +13,8 @@ class CitiesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Cities"
+        
         view.backgroundColor = .white
     }
 
