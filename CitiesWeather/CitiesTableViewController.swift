@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CitiesTableViewController.swift
 //  CitiesWeather
 //
 //  Created by Pavel Sazonov on 25/06/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CitiesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
