@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188C201422C2712E00012003 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201322C2712E00012003 /* City.swift */; };
 		18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86EE22C25CC6006777DB /* AppDelegate.swift */; };
 		18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */; };
 		18CC86F622C25CCA006777DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CC86F522C25CCA006777DB /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188C201322C2712E00012003 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		18CC86EB22C25CC6006777DB /* CitiesWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitiesWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CC86EE22C25CC6006777DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			children = (
 				18CC86EE22C25CC6006777DB /* AppDelegate.swift */,
 				18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */,
+				188C201322C2712E00012003 /* City.swift */,
 				18CC86F522C25CCA006777DB /* Assets.xcassets */,
 				18CC86F722C25CCA006777DB /* LaunchScreen.storyboard */,
 				18CC86FA22C25CCA006777DB /* Info.plist */,
@@ -133,6 +136,7 @@
 			files = (
 				18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */,
 				18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */,
+				188C201422C2712E00012003 /* City.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

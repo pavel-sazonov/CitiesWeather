@@ -9,6 +9,8 @@
 import UIKit
 
 class CitiesTableViewController: UITableViewController {
+    
+    var cities: City?
 
     override func viewDidLoad() {
         super.viewDidLoad()
