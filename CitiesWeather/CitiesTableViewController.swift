@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CitiesTableViewController: UITableViewController {
+final class CitiesTableViewController: UITableViewController {
     
-    var cities = [City]()
+    private var cities = [City]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(CityCell.self, forCellReuseIdentifier: "cellId")
         tableView.tableFooterView = UIView()
         
         navigationItem.title = "Cities"
