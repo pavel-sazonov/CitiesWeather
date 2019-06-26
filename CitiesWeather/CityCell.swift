@@ -10,38 +10,47 @@ import UIKit
 
 final class CityCell: UITableViewCell {
     
-    private let cityNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "CityNameCityNameCityNameCityNameCityNameCityName"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    // MARK: - Constants
+    private let padding: CGFloat = 8
+    private let spacing: CGFloat = 16
     
-    private let tempLabel: UILabel = {
-        let label = UILabel()
-        label.text = "38.5"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    weak var cityNameLabel: UILabel!
+    weak var tempLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(cityNameLabel)
-        addSubview(tempLabel)
-        
-        NSLayoutConstraint.activate([
-            cityNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            cityNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            trailingAnchor.constraint(equalTo: tempLabel.trailingAnchor, constant: 8),
-            tempLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cityNameLabel.trailingAnchor, constant: 8),
-            tempLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-        
+        setupView()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        
+        setupView()
     }
     
+    private func setupView() {
+        let cityNameLabel = UILabel()
+        cityNameLabel.text = "CityNameCityNameCityNameCityNameCity"
+        cityNameLabel.font = UIFont.systemFont(ofSize: 20)
+        cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(cityNameLabel)
+        self.cityNameLabel = cityNameLabel
+        
+        let tempLabel = UILabel()
+        tempLabel.text = "38.5"
+        tempLabel.font = UIFont.systemFont(ofSize: 26)
+        tempLabel.textColor = .blue
+        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(tempLabel)
+        self.tempLabel = tempLabel
+        
+        NSLayoutConstraint.activate([
+            cityNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            cityNameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            tempLabel.leadingAnchor.constraint(greaterThanOrEqualTo: cityNameLabel.trailingAnchor, constant: spacing),
+            tempLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            ])
+    }
 }
