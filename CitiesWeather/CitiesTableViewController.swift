@@ -57,4 +57,12 @@ extension CitiesTableViewController {
                             heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        let cityViewController = CityViewController()
+        cityViewController.city = cities[indexPath.row]
+
+        navigationController?.pushViewController(cityViewController, animated: true)
+    }
 }
