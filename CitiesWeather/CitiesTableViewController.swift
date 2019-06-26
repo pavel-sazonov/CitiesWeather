@@ -21,7 +21,7 @@ final class CitiesTableViewController: UITableViewController {
         navigationItem.title = "Cities"
         
         view.backgroundColor = .white
-        
+
         // test cities
         cities += [
             City(name: "Moscow", temp: 25),
@@ -44,9 +44,7 @@ extension CitiesTableViewController {
     
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        
-        cell.textLabel?.text = cities[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CityCell
         
         return cell
     }
