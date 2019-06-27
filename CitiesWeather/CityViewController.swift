@@ -39,8 +39,8 @@ final class CityViewController: UIViewController {
         self.cityImageView = cityImageView
         
         let blackView = UIView()
-        blackView.backgroundColor = .black
-        blackView.alpha = 0.4
+        blackView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        blackView.isOpaque = false
         blackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blackView)
         self.dimCityImageView = blackView
