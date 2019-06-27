@@ -34,6 +34,7 @@ final class CitiesTableViewController: UITableViewController {
         NetworkService().fetchData(stringUrl: stringUrl) { data in
             let forecasts = ForecastsForCities(json: data)
             self.cities = forecasts?.cities ?? []
+            self.cities.sort { $0.name < $1.name }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
