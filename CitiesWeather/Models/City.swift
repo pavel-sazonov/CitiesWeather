@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct City {
+struct City: Decodable {
     let name: String
-    var temp: Double
+    let forecast: Forecast
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case forecast = "main"
+    }
 }

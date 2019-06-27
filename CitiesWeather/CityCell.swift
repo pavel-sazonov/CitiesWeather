@@ -14,8 +14,17 @@ final class CityCell: UITableViewCell {
     private let padding: CGFloat = 8
     private let spacing: CGFloat = 16
     
-    weak var cityNameLabel: UILabel!
-    weak var tempLabel: UILabel!
+    var city: City? {
+        didSet {
+            if let city = city {
+                cityNameLabel.text = city.name
+                tempLabel.text = String(Int(city.forecast.temp.rounded())) + "°"
+            }
+        }
+    }
+    
+    private weak var cityNameLabel: UILabel!
+    private weak var tempLabel: UILabel!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,14 +40,13 @@ final class CityCell: UITableViewCell {
     
     private func setupView() {
         let cityNameLabel = UILabel()
-        cityNameLabel.text = "CityNameCityNameCityNameCityNameCity"
         cityNameLabel.font = UIFont.systemFont(ofSize: 20)
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(cityNameLabel)
         self.cityNameLabel = cityNameLabel
         
         let tempLabel = UILabel()
-        tempLabel.text = "38.5"
+        tempLabel.text = "--"
         tempLabel.font = UIFont.systemFont(ofSize: 26)
         tempLabel.textColor = .blue
         tempLabel.translatesAutoresizingMaskIntoConstraints = false

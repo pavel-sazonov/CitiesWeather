@@ -21,16 +21,24 @@ final class CitiesTableViewController: UITableViewController {
         navigationItem.title = "Cities"
         
         view.backgroundColor = .white
-
-        // test cities
-        cities += [
-            City(name: "Moscow", temp: 25),
-            City(name: "Samara", temp: 30),
-            City(name: "Sochi", temp: 32)
-        ]
+        
+        setupView()
     }
-
-
+    
+    private func setupView() {
+        let stringUrl = Constants.baseUrl + "?bbox=" +
+            RectOnMap.leftDownCornerCoordinates + "," +
+            RectOnMap.rightUpCornerCoordinates + "," + RectOnMap.zoom +
+            "&units=metric&appid=" + Constants.appId
+        
+        NetworkService().fetchData(stringUrl: stringUrl) { data in
+            let forecasts = ForecastsForCities(json: data)
+            self.cities = forecasts?.cities ?? []
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - Table View Data Source
@@ -45,6 +53,7 @@ extension CitiesTableViewController {
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CityCell
+        cell.city = cities[indexPath.row]
         
         return cell
     }
@@ -55,7 +64,7 @@ extension CitiesTableViewController {
 extension CitiesTableViewController {
     override func tableView(_ tableView: UITableView,
                             heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return Constants.rowHeight
     }
     
     override func tableView(_ tableView: UITableView,
@@ -64,5 +73,19 @@ extension CitiesTableViewController {
         cityViewController.city = cities[indexPath.row]
 
         navigationController?.pushViewController(cityViewController, animated: true)
+    }
+}
+
+extension CitiesTableViewController {
+    private struct Constants {
+        static let rowHeight: CGFloat = 80
+        static let baseUrl = "http://api.openweathermap.org/data/2.5/box/city"
+        static let appId = "f7bc46ab2fd400f1b0c787b61e8bf8bc"
+    }
+    
+    private struct RectOnMap {
+        static let leftDownCornerCoordinates = "35,54"
+        static let rightUpCornerCoordinates = "39,57"
+        static let zoom = "8"
     }
 }

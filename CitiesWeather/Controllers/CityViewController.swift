@@ -29,7 +29,7 @@ final class CityViewController: UIViewController {
     
     private func setupView() {
         let cityImageView = UIImageView()
-        guard let url = URL(string: "https://pixabay.com/get/52e2dd4a4c57a414f6da8c7dda79367c1d37dae456566c4870297ad1904dc05db0_1280.jpg")
+        guard let url = URL(string: "https://pixabay.com/get/57e7d5454c57b108f5d08460962935761d3bdfe0544c704c732e7edc964bcd5f_1280.jpg")
             else { return }
         guard let imageData = try? Data(contentsOf: url) else { return }
         if let image = UIImage(data: imageData) { cityImageView.image = image }
@@ -46,7 +46,7 @@ final class CityViewController: UIViewController {
         self.dimCityImageView = blackView
         
         let tempLabel = UILabel()
-        if let temp = city?.temp { tempLabel.text = String(Int(temp)) + "°" }
+        if let temp = city?.forecast.temp { tempLabel.text = String(Int(temp.rounded())) + "°" }
         tempLabel.font = UIFont.systemFont(ofSize: 100)
         tempLabel.textColor = .white
         tempLabel.textAlignment = .center
