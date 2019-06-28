@@ -30,7 +30,9 @@ final class CitiesTableViewController: UITableViewController {
             RectOnMap.rightUpCornerCoordinates + "," + RectOnMap.zoom +
             "&units=metric&appid=" + Constants.appId
         
-        NetworkService().fetchData(stringUrl: stringUrl) { data in
+        NetworkService().fetchData(stringUrl: stringUrl) { [weak self] data in
+            
+            guard let self = self else { return }
             guard let weatherForCities = WeatherForCities(json: data) else { return }
             
             // to load initial data
