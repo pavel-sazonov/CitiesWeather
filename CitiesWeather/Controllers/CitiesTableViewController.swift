@@ -15,14 +15,13 @@ final class CitiesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(CityCell.self, forCellReuseIdentifier: "cellId")
-        tableView.tableFooterView = UIView()
-        
-        navigationItem.title = "Cities"
-        
-        view.backgroundColor = .white
-        
+        setupView()
         updateModelFromApi()
+    }
+    
+    private func setupView() {
+        setupTableView()
+        setupRefreshControll()
     }
     
     private func updateModelFromApi() {
@@ -37,8 +36,30 @@ final class CitiesTableViewController: UITableViewController {
             self.cities.sort { $0.name < $1.name }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
             }
         }
+    }
+    
+    private func setupTableView() {
+        tableView.backgroundColor = .white
+        tableView.register(CityCell.self, forCellReuseIdentifier: "cellId")
+        tableView.tableFooterView = UIView()
+        navigationItem.title = "Cities"
+    }
+    
+    private func setupRefreshControll() {
+        let refreshControl = UIRefreshControl()
+        let title = "Pull to refresh"
+        
+        refreshControl.attributedTitle = NSAttributedString(string: title)
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+
+        tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func refreshWeatherData(_ sender: Any) {
+        updateModelFromApi()
     }
 }
 

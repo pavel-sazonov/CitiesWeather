@@ -29,7 +29,7 @@ final class CityViewController: UIViewController {
     
     private func setupView() {
         let cityImageView = UIImageView()
-        guard let url = URL(string: "https://pixabay.com/get/57e7d5454c57b108f5d08460962935761d3bdfe0544c704c732e7edc964bcd5f_1280.jpg")
+        guard let url = URL(string: "https://pixabay.com/get/57e7d5454c57b108f5d08460962935761d3bdfe0544c704c732e7cd6954fcd5a_1280.jpg")
             else { return }
         guard let imageData = try? Data(contentsOf: url) else { return }
         if let image = UIImage(data: imageData) { cityImageView.image = image }
