@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181D899422C6B27C00C81AA2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181D899322C6B27B00C81AA2 /* Configuration.swift */; };
 		188C201422C2712E00012003 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201322C2712E00012003 /* City.swift */; };
 		188C201622C27BA200012003 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201522C27BA200012003 /* CityCell.swift */; };
 		188C201822C3D1DD00012003 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201722C3D1DD00012003 /* CityViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181D899322C6B27B00C81AA2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		188C201322C2712E00012003 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		188C201522C27BA200012003 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		188C201722C3D1DD00012003 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		18CC86ED22C25CC6006777DB /* CitiesWeather */ = {
 			isa = PBXGroup;
 			children = (
+				181D899322C6B27B00C81AA2 /* Configuration.swift */,
 				18CC86EE22C25CC6006777DB /* AppDelegate.swift */,
 				188C202022C5545B00012003 /* Controllers */,
 				188C201922C4B88A00012003 /* NetworkService.swift */,
@@ -168,6 +171,7 @@
 				18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */,
 				188C201822C3D1DD00012003 /* CityViewController.swift in Sources */,
 				188C201D22C5518400012003 /* Forecast.swift in Sources */,
+				181D899422C6B27C00C81AA2 /* Configuration.swift in Sources */,
 				18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */,
 				188C201622C27BA200012003 /* CityCell.swift in Sources */,
 				188C201F22C551B400012003 /* WeatherForCities.swift in Sources */,

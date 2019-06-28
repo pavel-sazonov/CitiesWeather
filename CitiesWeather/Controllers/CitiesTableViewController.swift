@@ -25,12 +25,8 @@ final class CitiesTableViewController: UITableViewController {
     }
     
     private func updateModelFromApi() {
-        let stringUrl = Constants.baseUrl + "?bbox=" +
-            RectOnMap.leftDownCornerCoordinates + "," +
-            RectOnMap.rightUpCornerCoordinates + "," + RectOnMap.zoom +
-            "&units=metric&appid=" + Constants.appId
         
-        NetworkService().fetchData(stringUrl: stringUrl) { [weak self] data in
+        NetworkService().fetchData(url: API.authenticatedWeatherURL) { [weak self] data in
             
             guard let self = self else { return }
             guard let weatherForCities = WeatherForCities(json: data) else { return }
@@ -49,9 +45,7 @@ final class CitiesTableViewController: UITableViewController {
                         indexPathsForReload.append(IndexPath(row: index, section: 0))
                     }
                 }
-                
-                print(indexPathsForReload.count)
-                
+                                
                 if !indexPathsForReload.isEmpty {
                     self.cities = weatherForCities.cities
                     self.tableView.reloadRows(at: indexPathsForReload, with: .fade)
@@ -106,7 +100,7 @@ extension CitiesTableViewController {
 extension CitiesTableViewController {
     override func tableView(_ tableView: UITableView,
                             heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.rowHeight
+        return 80
     }
     
     override func tableView(_ tableView: UITableView,
@@ -115,19 +109,5 @@ extension CitiesTableViewController {
         cityViewController.city = cities[indexPath.row]
 
         navigationController?.pushViewController(cityViewController, animated: true)
-    }
-}
-
-extension CitiesTableViewController {
-    private struct Constants {
-        static let rowHeight: CGFloat = 80
-        static let baseUrl = "http://api.openweathermap.org/data/2.5/box/city"
-        static let appId = "f7bc46ab2fd400f1b0c787b61e8bf8bc"
-    }
-    
-    private struct RectOnMap {
-        static let leftDownCornerCoordinates = "35,54"
-        static let rightUpCornerCoordinates = "39,57"
-        static let zoom = "8"
     }
 }
