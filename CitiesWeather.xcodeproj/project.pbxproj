@@ -12,7 +12,7 @@
 		188C201822C3D1DD00012003 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201722C3D1DD00012003 /* CityViewController.swift */; };
 		188C201A22C4B88A00012003 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201922C4B88A00012003 /* NetworkService.swift */; };
 		188C201D22C5518400012003 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201C22C5518400012003 /* Forecast.swift */; };
-		188C201F22C551B400012003 /* ForecastsForCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201E22C551B400012003 /* ForecastsForCities.swift */; };
+		188C201F22C551B400012003 /* WeatherForCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201E22C551B400012003 /* WeatherForCities.swift */; };
 		18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86EE22C25CC6006777DB /* AppDelegate.swift */; };
 		18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */; };
 		18CC86F622C25CCA006777DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CC86F522C25CCA006777DB /* Assets.xcassets */; };
@@ -25,7 +25,7 @@
 		188C201722C3D1DD00012003 /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		188C201922C4B88A00012003 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		188C201C22C5518400012003 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
-		188C201E22C551B400012003 /* ForecastsForCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsForCities.swift; sourceTree = "<group>"; };
+		188C201E22C551B400012003 /* WeatherForCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForCities.swift; sourceTree = "<group>"; };
 		18CC86EB22C25CC6006777DB /* CitiesWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitiesWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CC86EE22C25CC6006777DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		188C201B22C5513F00012003 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				188C201E22C551B400012003 /* ForecastsForCities.swift */,
+				188C201E22C551B400012003 /* WeatherForCities.swift */,
 				188C201322C2712E00012003 /* City.swift */,
 				188C201C22C5518400012003 /* Forecast.swift */,
 			);
@@ -170,7 +170,7 @@
 				188C201D22C5518400012003 /* Forecast.swift in Sources */,
 				18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */,
 				188C201622C27BA200012003 /* CityCell.swift in Sources */,
-				188C201F22C551B400012003 /* ForecastsForCities.swift in Sources */,
+				188C201F22C551B400012003 /* WeatherForCities.swift in Sources */,
 				188C201A22C4B88A00012003 /* NetworkService.swift in Sources */,
 				188C201422C2712E00012003 /* City.swift in Sources */,
 			);

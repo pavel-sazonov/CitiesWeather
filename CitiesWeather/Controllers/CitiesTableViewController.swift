@@ -31,11 +31,11 @@ final class CitiesTableViewController: UITableViewController {
             "&units=metric&appid=" + Constants.appId
         
         NetworkService().fetchData(stringUrl: stringUrl) { data in
-            guard let forecasts = ForecastsForCities(json: data) else { return }
+            guard let weatherForCities = WeatherForCities(json: data) else { return }
             
             // to load initial data
             if self.cities.isEmpty {
-                self.cities = forecasts.cities
+                self.cities = weatherForCities.cities
                 self.tableView.reloadData()
                 
             // to reload only updated rows
@@ -43,7 +43,7 @@ final class CitiesTableViewController: UITableViewController {
                 var indexPathsForReload = [IndexPath]()
                 
                 for index in self.cities.indices {
-                    if self.cities[index].forecast.temp != forecasts.cities[index].forecast.temp {
+                    if self.cities[index].forecast.temp != weatherForCities.cities[index].forecast.temp {
                         indexPathsForReload.append(IndexPath(row: index, section: 0))
                     }
                 }
@@ -51,7 +51,7 @@ final class CitiesTableViewController: UITableViewController {
                 print(indexPathsForReload.count)
                 
                 if !indexPathsForReload.isEmpty {
-                    self.cities = forecasts.cities
+                    self.cities = weatherForCities.cities
                     self.tableView.reloadRows(at: indexPathsForReload, with: .fade)
                 }
                 self.refreshControl?.endRefreshing()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ForecastsForCities: Decodable {
+struct WeatherForCities: Decodable {
     private (set) var cities: [City]
     
     enum CodingKeys: String, CodingKey {
@@ -17,7 +17,7 @@ struct ForecastsForCities: Decodable {
     
     init?(json: Data) {
         do {
-            var newValue = try JSONDecoder().decode(ForecastsForCities.self, from: json)
+            var newValue = try JSONDecoder().decode(WeatherForCities.self, from: json)
             newValue.cities.reverse()
             self = newValue
         } catch let parsingError {
