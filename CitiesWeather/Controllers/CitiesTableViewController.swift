@@ -22,10 +22,10 @@ final class CitiesTableViewController: UITableViewController {
         
         view.backgroundColor = .white
         
-        setupView()
+        updateModelFromApi()
     }
     
-    private func setupView() {
+    private func updateModelFromApi() {
         let stringUrl = Constants.baseUrl + "?bbox=" +
             RectOnMap.leftDownCornerCoordinates + "," +
             RectOnMap.rightUpCornerCoordinates + "," + RectOnMap.zoom +
