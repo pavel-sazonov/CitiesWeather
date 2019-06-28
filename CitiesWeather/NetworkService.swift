@@ -22,7 +22,9 @@ final class NetworkService {
             
             guard let data = data else { return }
             
-            completion(data)
+            DispatchQueue.main.async {
+                completion(data)
+            }
         }.resume()
     }
 }

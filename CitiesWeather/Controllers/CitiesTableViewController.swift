@@ -31,11 +31,29 @@ final class CitiesTableViewController: UITableViewController {
             "&units=metric&appid=" + Constants.appId
         
         NetworkService().fetchData(stringUrl: stringUrl) { data in
-            let forecasts = ForecastsForCities(json: data)
-            self.cities = forecasts?.cities ?? []
-            self.cities.sort { $0.name < $1.name }
-            DispatchQueue.main.async {
+            guard let forecasts = ForecastsForCities(json: data) else { return }
+            
+            // to load initial data
+            if self.cities.isEmpty {
+                self.cities = forecasts.cities
                 self.tableView.reloadData()
+                
+            // to reload only updated rows
+            } else {
+                var indexPathsForReload = [IndexPath]()
+                
+                for index in self.cities.indices {
+                    if self.cities[index].forecast.temp != forecasts.cities[index].forecast.temp {
+                        indexPathsForReload.append(IndexPath(row: index, section: 0))
+                    }
+                }
+                
+                print(indexPathsForReload.count)
+                
+                if !indexPathsForReload.isEmpty {
+                    self.cities = forecasts.cities
+                    self.tableView.reloadRows(at: indexPathsForReload, with: .fade)
+                }
                 self.refreshControl?.endRefreshing()
             }
         }
