@@ -14,10 +14,8 @@ final class CityViewController: UIViewController {
     var city: City?
     
     // MARK: - Views
-    private weak var cityImageView: UIImageView!
     private weak var spinner: UIActivityIndicatorView!
-    private weak var tempLabel: UILabel!
-    private weak var dimCityImageView: UIView!
+    private weak var cityImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,29 +23,34 @@ final class CityViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = city?.name
         
-        setupView()
+        setupSpinner()
         updateModelFromApi()
     }
     
-    private func setupView() {
+    private func setupSpinner() {
         let spinner = UIActivityIndicatorView(style: .whiteLarge)
-        spinner.color = .blue
+        spinner.color = .gray
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         view.addSubview(spinner)
         self.spinner = spinner
         
+        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    private func setupView() {
+        
         let cityImageView = UIImageView()
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
+        cityImageView.image = cityImage
         view.addSubview(cityImageView)
-        self.cityImageView = cityImageView
         
         let blackView = UIView()
         blackView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         blackView.isOpaque = false
         blackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blackView)
-        self.dimCityImageView = blackView
         
         let tempLabel = UILabel()
         if let temp = city?.forecast.temp { tempLabel.text = String(Int(temp.rounded())) + "°" }
@@ -56,11 +59,8 @@ final class CityViewController: UIViewController {
         tempLabel.textAlignment = .center
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tempLabel)
-        self.tempLabel = tempLabel
         
         NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             cityImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             cityImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             cityImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -82,15 +82,24 @@ final class CityViewController: UIViewController {
         
         networkService.fetchData(url: API.CityImage.imageURL(cityName: cityName)) { [weak self] data in
             guard let self = self else { return }
-            guard let cityImages = CityImagesResponse(json: data) else { return }
-            guard let imageStringUrl = cityImages.cities.first?.imageUrl else { return }
+            
+            let cityImages = CityImagesResponse(json: data)
+            
+            guard let imageStringUrl = cityImages?.cities.first?.imageUrl else {
+                let image = UIImage(named: "default")
+                self.cityImage = image
+                self.setupView()
+                self.spinner.stopAnimating()
+                return
+            }
+            
             guard let imageUrl = URL(string: imageStringUrl) else { return }
             
             networkService.fetchData(url: imageUrl) { data in
-                if let image = UIImage(data: data) {
-                    self.cityImageView.image = image
-                }
+                let image = UIImage(data: data)
+                self.cityImage = image
                 self.spinner.stopAnimating()
+                self.setupView()
             }
         }
     }
