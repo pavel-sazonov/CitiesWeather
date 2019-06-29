@@ -88,6 +88,7 @@ final class CityViewController: UIViewController {
             let cityImages = CityImagesResponse(json: data)
             
             guard let imageStringUrl = cityImages?.cities.first?.imageUrl else {
+                // if no images for this city on pixabay
                 let image = UIImage(named: "default")
                 self.cityImage = image
                 self.setupView()
