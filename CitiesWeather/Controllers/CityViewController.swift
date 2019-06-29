@@ -46,36 +46,46 @@ final class CityViewController: UIViewController {
         cityImageView.image = cityImage
         cityImageView.clipsToBounds = true
         cityImageView.contentMode = .scaleAspectFill
+        cityImageView.alpha = 0
         view.addSubview(cityImageView)
         
-        let blackView = UIView()
-        blackView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        blackView.isOpaque = false
-        blackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(blackView)
+        let dimCityImageView = UIView()
+        dimCityImageView.backgroundColor = UIColor.black
+        dimCityImageView.alpha = 0
+        dimCityImageView.isOpaque = false
+        dimCityImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dimCityImageView)
         
         let tempLabel = UILabel()
         if let temp = city?.forecast.temp { tempLabel.text = String(Int(temp.rounded())) + "°" }
         tempLabel.font = UIFont.systemFont(ofSize: 100)
         tempLabel.textColor = .white
         tempLabel.textAlignment = .center
+        tempLabel.alpha = 0
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tempLabel)
         
-        NSLayoutConstraint.activate([
-            cityImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            cityImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            cityImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            cityImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            blackView.leadingAnchor.constraint(equalTo: cityImageView.leadingAnchor),
-            blackView.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
-            blackView.topAnchor.constraint(equalTo: cityImageView.topAnchor),
-            blackView.bottomAnchor.constraint(equalTo: cityImageView.bottomAnchor),
-            tempLabel.leadingAnchor.constraint(equalTo: cityImageView.leadingAnchor),
-            tempLabel.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
-            tempLabel.topAnchor.constraint(equalTo: cityImageView.topAnchor, constant: 100)
-            
-            ])
+        UIView.animate(withDuration: 0.3) {
+            cityImageView.alpha = 1
+            dimCityImageView.alpha = 0.5
+            tempLabel.alpha = 1
+        }
+        
+        NSLayoutConstraint.activate(
+            [
+                cityImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                cityImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                cityImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                cityImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                dimCityImageView.leadingAnchor.constraint(equalTo: cityImageView.leadingAnchor),
+                dimCityImageView.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
+                dimCityImageView.topAnchor.constraint(equalTo: cityImageView.topAnchor),
+                dimCityImageView.bottomAnchor.constraint(equalTo: cityImageView.bottomAnchor),
+                tempLabel.leadingAnchor.constraint(equalTo: cityImageView.leadingAnchor),
+                tempLabel.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
+                tempLabel.topAnchor.constraint(equalTo: cityImageView.topAnchor, constant: 100)
+            ]
+        )
     }
     
     private func updateModelFromApi() {
