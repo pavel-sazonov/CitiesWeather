@@ -27,11 +27,11 @@ enum API {
         private static let apiKey = "12884157-e70aa4ed86563d5ed815564db"
         private static let baseURLString = "https://pixabay.com/api"
         private static let type = "photo"
-        private static let orientation = "vertical"
+//        private static let orientation = "vertical"
         private static let category = "places"
         
         static func imageURL(cityName: String) -> URL? {
-            let urlString = "\(baseURLString)?key=\(apiKey)&q=\(cityName)&image_type=\(type)&category=\(category)&orientation=\(orientation)"
+            let urlString = "\(baseURLString)?key=\(apiKey)&q=\(cityName)&image_type=\(type)&category=\(category)"
             
             guard let url = URL(string: urlString) else { return nil }
             

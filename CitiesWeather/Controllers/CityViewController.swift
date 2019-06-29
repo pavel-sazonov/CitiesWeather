@@ -44,6 +44,8 @@ final class CityViewController: UIViewController {
         let cityImageView = UIImageView()
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
         cityImageView.image = cityImage
+        cityImageView.clipsToBounds = true
+        cityImageView.contentMode = .scaleAspectFill
         view.addSubview(cityImageView)
         
         let blackView = UIView()
