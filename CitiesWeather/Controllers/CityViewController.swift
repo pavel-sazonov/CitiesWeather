@@ -15,6 +15,7 @@ final class CityViewController: UIViewController {
     
     // MARK: - Views
     private weak var cityImageView: UIImageView!
+    private weak var spinner: UIActivityIndicatorView!
     private weak var tempLabel: UILabel!
     private weak var dimCityImageView: UIView!
     
@@ -29,6 +30,13 @@ final class CityViewController: UIViewController {
     }
     
     private func setupView() {
+        let spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner.color = .blue
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        self.spinner = spinner
+        
         let cityImageView = UIImageView()
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cityImageView)
@@ -51,6 +59,8 @@ final class CityViewController: UIViewController {
         self.tempLabel = tempLabel
         
         NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             cityImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             cityImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             cityImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -80,6 +90,7 @@ final class CityViewController: UIViewController {
                 if let image = UIImage(data: data) {
                     self.cityImageView.image = image
                 }
+                self.spinner.stopAnimating()
             }
         }
     }
