@@ -81,8 +81,7 @@ final class CityViewController: UIViewController {
                 dimCityImageView.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
                 dimCityImageView.topAnchor.constraint(equalTo: cityImageView.topAnchor),
                 dimCityImageView.bottomAnchor.constraint(equalTo: cityImageView.bottomAnchor),
-                tempLabel.leadingAnchor.constraint(equalTo: cityImageView.leadingAnchor),
-                tempLabel.trailingAnchor.constraint(equalTo: cityImageView.trailingAnchor),
+                tempLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 tempLabel.topAnchor.constraint(equalTo: cityImageView.topAnchor, constant: 100)
             ]
         )
