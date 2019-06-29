@@ -26,7 +26,7 @@ final class CitiesTableViewController: UITableViewController {
     
     private func updateModelFromApi() {
         
-        NetworkService().fetchData(url: API.authenticatedWeatherURL) { [weak self] data in
+        NetworkService().fetchData(url: API.Weather.url) { [weak self] data in
             
             guard let self = self else { return }
             guard let weatherForCities = WeatherForCities(json: data) else { return }

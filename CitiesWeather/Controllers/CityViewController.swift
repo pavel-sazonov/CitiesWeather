@@ -25,15 +25,11 @@ final class CityViewController: UIViewController {
         navigationItem.title = city?.name
         
         setupView()
+        updateModelFromApi()
     }
     
     private func setupView() {
         let cityImageView = UIImageView()
-        guard let url = URL(string: "https://pixabay.com/get/57e7d5454c57b108f5d08460962935761d3bdfe0544c704c732e7cd6954fcd5a_1280.jpg")
-            else { return }
-        guard let imageData = try? Data(contentsOf: url) else { return }
-        if let image = UIImage(data: imageData) { cityImageView.image = image }
-        
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cityImageView)
         self.cityImageView = cityImageView
@@ -68,5 +64,23 @@ final class CityViewController: UIViewController {
             tempLabel.topAnchor.constraint(equalTo: cityImageView.topAnchor, constant: 100)
             
             ])
+    }
+    
+    private func updateModelFromApi() {
+        let networkService = NetworkService()
+        guard let cityName = city?.name else { return }
+        
+        networkService.fetchData(url: API.CityImage.imageURL(cityName: cityName)) { [weak self] data in
+            guard let self = self else { return }
+            guard let cityImages = CityImagesResponse(json: data) else { return }
+            guard let imageStringUrl = cityImages.cities.first?.imageUrl else { return }
+            guard let imageUrl = URL(string: imageStringUrl) else { return }
+            
+            networkService.fetchData(url: imageUrl) { data in
+                if let image = UIImage(data: data) {
+                    self.cityImageView.image = image
+                }
+            }
+        }
     }
 }

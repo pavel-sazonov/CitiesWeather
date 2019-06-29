@@ -9,15 +9,33 @@
 import Foundation
 
 enum API {
-    private static let apiKey = "f7bc46ab2fd400f1b0c787b61e8bf8bc"
-    private static let baseWeatherURLString = "http://api.openweathermap.org/data/2.5/box/city"
-    private static let rectCoordinates = "35,54,39,57,8"
+    enum Weather {
+        private static let apiKey = "f7bc46ab2fd400f1b0c787b61e8bf8bc"
+        private static let baseURLString = "http://api.openweathermap.org/data/2.5/box/city"
+        private static let rectCoordinates = "35,54,39,57,8"
+        
+        static var url: URL? {
+            guard var urlComponents = URLComponents(string: baseURLString) else { return nil }
+            
+            urlComponents.query = "bbox=\(rectCoordinates)&units=metric&appid=\(apiKey)"
+            
+            return urlComponents.url
+        }
+    }
     
-    static var authenticatedWeatherURL: URL? {
-        guard var urlComponents = URLComponents(string: baseWeatherURLString) else { return nil }
+    enum CityImage {
+        private static let apiKey = "12884157-e70aa4ed86563d5ed815564db"
+        private static let baseURLString = "https://pixabay.com/api"
+        private static let type = "photo"
+        private static let orientation = "vertical"
+        private static let category = "places"
         
-        urlComponents.query = "bbox=\(rectCoordinates)&units=metric&appid=\(apiKey)"
-        
-        return urlComponents.url
+        static func imageURL(cityName: String) -> URL? {
+            let urlString = "\(baseURLString)?key=\(apiKey)&q=\(cityName)&image_type=\(type)&category=\(category)&orientation=\(orientation)"
+            
+            guard let url = URL(string: urlString) else { return nil }
+            
+            return url
+        }
     }
 }
