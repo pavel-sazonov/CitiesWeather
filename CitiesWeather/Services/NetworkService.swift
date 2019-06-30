@@ -18,9 +18,15 @@ final class NetworkService {
                 print(error.localizedDescription)
             }
             
-            DispatchQueue.main.async {
-                completion(data)
+            if let data = data,
+                let response = response,
+                ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300 {
+                
+                DispatchQueue.main.async { completion(data) }
+            } else {
+                DispatchQueue.main.async { completion(nil) }
             }
+            
         }.resume()
     }
 }

@@ -113,8 +113,7 @@ final class CityViewController: UIViewController {
     private func fetchImage() {
         guard let cityName = city?.name else { return }
         
-        cityImageService.getImage(from: API.CityImage.imageURL(cityName: cityName)) { [weak self] image in
-            
+        cityImageService.loadImage(from: API.CityImage.imageURL(cityName: cityName)) { [weak self] image in
             guard let image = image else {
                 self?.messageLabel.isHidden = false
                 self?.spinner.stopAnimating()
