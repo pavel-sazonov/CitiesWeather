@@ -16,6 +16,7 @@ final class CitiesViewController: UIViewController {
     // MARK: - Views
     private weak var tableView: UITableView!
     private weak var refreshControl: UIRefreshControl!
+    private weak var messageLabel: UILabel!
     
     
     // MARK: - Properties
@@ -25,17 +26,26 @@ final class CitiesViewController: UIViewController {
         super.loadView()
         
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.isHidden = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
+        self.tableView = tableView
+        
+        let messageLabel = UILabel()
+        messageLabel.isHidden = true
+        messageLabel.text = "Something went wrong..."
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(messageLabel)
+        self.messageLabel = messageLabel
         
         NSLayoutConstraint.activate([
             self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
             self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+            messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
-        
-        self.tableView = tableView
     }
 
     override func viewDidLoad() {
@@ -49,11 +59,11 @@ final class CitiesViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
-        setupRefreshControll()
-        updateModelFromApi()
+        setupRefreshControl()
+        fetchWeatherData()
     }
     
-    private func setupRefreshControll() {
+    private func setupRefreshControl() {
         let refreshControl = UIRefreshControl()
         let title = "Pull to refresh"
         
@@ -65,19 +75,26 @@ final class CitiesViewController: UIViewController {
     }
     
     @objc private func refreshWeatherData(_ sender: Any) {
-        updateModelFromApi()
+        fetchWeatherData()
     }
     
-    private func updateModelFromApi() {
+    private func fetchWeatherData() {
         weatherService.getWeather(from: API.Weather.url) { [weak self] cities in
             guard let self = self else { return }
             
-            // to load initial data
+            guard let cities = cities else {
+                self.messageLabel.isHidden = false
+                return
+            }
+            
+            self.tableView.isHidden = false
+            
+            // load initial data
             if self.cities.isEmpty {
                 self.cities = cities
                 self.tableView.reloadData()
                 
-            // to reload only updated rows
+            // reload only updated rows
             } else {
                 var indexPathsForReload = [IndexPath]()
                 

@@ -16,11 +16,17 @@ final class WeatherService {
         self.networkService = networkService
     }
     
-    func getWeather(from url: URL?, completion: @escaping ([City]) -> Void) {
+    func getWeather(from url: URL?, completion: @escaping ([City]?) -> Void) {
         networkService?.fetchData(url: url) { data in
-            if let weather = WeatherForCities(json: data) {
-                completion(weather.cities)
+            
+            // if somthing wrong
+            guard let data = data else {
+                completion(nil)
+                return
             }
+            
+            let weather = WeatherForCities(json: data)
+            completion(weather?.cities)
         }
     }
 }

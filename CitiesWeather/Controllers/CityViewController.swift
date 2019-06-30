@@ -19,16 +19,11 @@ final class CityViewController: UIViewController {
     
     // MARK: - Views
     private weak var spinner: UIActivityIndicatorView!
+    private weak var messageLabel: UILabel!
     private weak var cityImageView: UIImageView!
     private weak var dimCityImageView: UIView!
     private weak var tempLabel: UILabel!
-    
-    private weak var cityImage: UIImage! {
-        didSet {
-            setupView()
-            spinner.stopAnimating()
-        }
-    }
+    private weak var cityImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +32,8 @@ final class CityViewController: UIViewController {
         navigationItem.title = city?.name
         
         setupSpinner()
-        updateModelFromApi()
+        setupMessage()
+        fetchImage()
     }
     
     private func setupSpinner() {
@@ -50,6 +46,18 @@ final class CityViewController: UIViewController {
         
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    private func setupMessage() {
+        let messageLabel = UILabel()
+        messageLabel.isHidden = true
+        messageLabel.text = "Something went wrong..."
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(messageLabel)
+        self.messageLabel = messageLabel
+        
+        messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     private func setupView() {
@@ -102,18 +110,20 @@ final class CityViewController: UIViewController {
         )
     }
     
-    private func updateModelFromApi() {
+    private func fetchImage() {
         guard let cityName = city?.name else { return }
         
         cityImageService.getImage(from: API.CityImage.imageURL(cityName: cityName)) { [weak self] image in
             
-            // if service did not find any images for current city
             guard let image = image else {
-                self?.cityImage = self?.defaultImage
+                self?.messageLabel.isHidden = false
+                self?.spinner.stopAnimating()
                 return
             }
             
             self?.cityImage = image
+            self?.setupView()
+            self?.spinner.stopAnimating()
         }
     }
 }

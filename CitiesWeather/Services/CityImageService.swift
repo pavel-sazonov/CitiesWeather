@@ -18,18 +18,37 @@ final class CityImageService {
     func getImage(from url: URL?, completion: @escaping (UIImage?) -> Void) {
         networkService?.fetchData(url: url) { data in
             
-            guard let stringImageUrl = CityImagesResponse(json: data)?.cities.first?.imageUrl else {
-                // service did not find any images for current city
+            guard let data = data else {
                 completion(nil)
                 return
             }
             
-            guard let url = URL(string: stringImageUrl) else {
+            guard let cityImagesResponse = CityImagesResponse(json: data)  else {
+                completion(nil)
+                return
+            }
+            
+            // if API did not find any images for current city
+            if cityImagesResponse.cities.isEmpty {
+                completion(UIImage(named: "default"))
+                return
+            }
+            
+            let urlString = cityImagesResponse.cities[0].imageUrl
+            
+            guard let url = URL(string: urlString) else {
                 print("bad image url from api")
+                completion(nil)
                 return
             }
             
             self.networkService?.fetchData(url: url) { data in
+                
+                guard let data = data else {
+                    completion(nil)
+                    return
+                }
+                
                 completion(UIImage(data: data))
             }
         }

@@ -10,16 +10,13 @@ import Foundation
 
 final class NetworkService {
     
-    func fetchData(url: URL?, completion: @escaping (Data) -> Void) {
+    func fetchData(url: URL?, completion: @escaping (Data?) -> Void) {
         guard let url = url else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print(error.localizedDescription)
-                return
             }
-            
-            guard let data = data else { return }
             
             DispatchQueue.main.async {
                 completion(data)

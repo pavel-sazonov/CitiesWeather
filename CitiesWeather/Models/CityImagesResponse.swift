@@ -15,7 +15,7 @@ struct CityImagesResponse: Decodable {
         case cities = "hits"
     }
     
-    init?(json: Data) {
+    init?(json: Data) {        
         do {
             let newValue = try JSONDecoder().decode(CityImagesResponse.self, from: json)
             self = newValue
