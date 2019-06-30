@@ -11,15 +11,18 @@ import Foundation
 enum API {
     enum Weather {
         private static let apiKey = "f7bc46ab2fd400f1b0c787b61e8bf8bc"
-        private static let baseURLString = "http://api.openweathermap.org/data/2.5/box/city"
+        private static let baseURL = "http://api.openweathermap.org/data/2.5/box/city"
         private static let rectCoordinates = "35,54,39,57,8"
         
         static var url: URL? {
-            guard var urlComponents = URLComponents(string: baseURLString) else { return nil }
+            let urlString = "\(baseURL)?bbox=\(rectCoordinates)&units=metric&appid=\(apiKey)"
             
-            urlComponents.query = "bbox=\(rectCoordinates)&units=metric&appid=\(apiKey)"
+            guard let url = URL(string: urlString) else {
+                print("bad API URL")
+                return nil
+            }
             
-            return urlComponents.url
+            return url
         }
     }
     
@@ -33,7 +36,10 @@ enum API {
         static func imageURL(cityName: String) -> URL? {
             let urlString = "\(baseURLString)?key=\(apiKey)&q=\(cityName)&image_type=\(type)&category=\(category)"
             
-            guard let url = URL(string: urlString) else { return nil }
+            guard let url = URL(string: urlString) else {
+                print("bad API URL")
+                return nil
+            }
             
             return url
         }
