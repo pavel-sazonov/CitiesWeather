@@ -11,6 +11,7 @@ import UIKit
 final class CitiesTableViewController: UITableViewController {
     
     private var cities = [City]()
+    private var weatherService = WeatherService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +26,12 @@ final class CitiesTableViewController: UITableViewController {
     }
     
     private func updateModelFromApi() {
-        
-        NetworkService().fetchData(url: API.Weather.url) { [weak self] data in
-            
+        weatherService.getWeather(from: API.Weather.url) { [weak self] cities in
             guard let self = self else { return }
-            guard let weatherForCities = WeatherForCities(json: data) else { return }
             
             // to load initial data
             if self.cities.isEmpty {
-                self.cities = weatherForCities.cities
+                self.cities = cities
                 self.tableView.reloadData()
                 
             // to reload only updated rows
@@ -41,13 +39,13 @@ final class CitiesTableViewController: UITableViewController {
                 var indexPathsForReload = [IndexPath]()
                 
                 for index in self.cities.indices {
-                    if self.cities[index].forecast.temp != weatherForCities.cities[index].forecast.temp {
+                    if self.cities[index].forecast.temp != cities[index].forecast.temp {
                         indexPathsForReload.append(IndexPath(row: index, section: 0))
                     }
                 }
-                                
+                
                 if !indexPathsForReload.isEmpty {
-                    self.cities = weatherForCities.cities
+                    self.cities = cities
                     self.tableView.reloadRows(at: indexPathsForReload, with: .fade)
                 }
                 self.refreshControl?.endRefreshing()
