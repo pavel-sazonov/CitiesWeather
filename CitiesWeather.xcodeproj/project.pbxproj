@@ -19,7 +19,7 @@
 		188C201D22C5518400012003 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201C22C5518400012003 /* Forecast.swift */; };
 		188C201F22C551B400012003 /* WeatherForCities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C201E22C551B400012003 /* WeatherForCities.swift */; };
 		18CC86EF22C25CC6006777DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86EE22C25CC6006777DB /* AppDelegate.swift */; };
-		18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */; };
+		18CC86F122C25CC6006777DB /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CC86F022C25CC6006777DB /* CitiesViewController.swift */; };
 		18CC86F622C25CCA006777DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18CC86F522C25CCA006777DB /* Assets.xcassets */; };
 		18CC86F922C25CCA006777DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18CC86F722C25CCA006777DB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,7 +38,7 @@
 		188C201E22C551B400012003 /* WeatherForCities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForCities.swift; sourceTree = "<group>"; };
 		18CC86EB22C25CC6006777DB /* CitiesWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitiesWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CC86EE22C25CC6006777DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesTableViewController.swift; sourceTree = "<group>"; };
+		18CC86F022C25CC6006777DB /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		18CC86F522C25CCA006777DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18CC86F822C25CCA006777DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18CC86FA22C25CCA006777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		188C202022C5545B00012003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18CC86F022C25CC6006777DB /* CitiesTableViewController.swift */,
+				18CC86F022C25CC6006777DB /* CitiesViewController.swift */,
 				188C201722C3D1DD00012003 /* CityViewController.swift */,
 			);
 			path = Controllers;
@@ -196,7 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18CC86F122C25CC6006777DB /* CitiesTableViewController.swift in Sources */,
+				18CC86F122C25CC6006777DB /* CitiesViewController.swift in Sources */,
 				188C201822C3D1DD00012003 /* CityViewController.swift in Sources */,
 				1840089722C77319002A1F05 /* CityImage.swift in Sources */,
 				183EE43C22C8DDB4001B558B /* CityImageService.swift in Sources */,
