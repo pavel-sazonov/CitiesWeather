@@ -13,9 +13,19 @@ final class CityViewController: UIViewController {
     // MARK: - Model
     var city: City?
     
+    // MARK: - Properties
+    private let cityImageService = CityImageService()
+    private let defaultImage = UIImage(named: "default")
+    
     // MARK: - Views
     private weak var spinner: UIActivityIndicatorView!
-    private weak var cityImage: UIImage!
+    
+    private weak var cityImage: UIImage! {
+        didSet {
+            setupView()
+            spinner.stopAnimating()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +50,6 @@ final class CityViewController: UIViewController {
     }
     
     private func setupView() {
-        
         let cityImageView = UIImageView()
         cityImageView.translatesAutoresizingMaskIntoConstraints = false
         cityImageView.image = cityImage
@@ -88,31 +97,17 @@ final class CityViewController: UIViewController {
     }
     
     private func updateModelFromApi() {
-        let networkService = NetworkService()
         guard let cityName = city?.name else { return }
         
-        networkService.fetchData(url: API.CityImage.imageURL(cityName: cityName)) { [weak self] data in
-            guard let self = self else { return }
+        cityImageService.getImage(from: API.CityImage.imageURL(cityName: cityName)) { [weak self] image in
             
-            let cityImages = CityImagesResponse(json: data)
-            
-            guard let imageStringUrl = cityImages?.cities.first?.imageUrl else {
-                // if no images for this city on pixabay
-                let image = UIImage(named: "default")
-                self.cityImage = image
-                self.setupView()
-                self.spinner.stopAnimating()
+            // if service did not find any images for current city
+            guard let image = image else {
+                self?.cityImage = self?.defaultImage
                 return
             }
             
-            guard let imageUrl = URL(string: imageStringUrl) else { return }
-            
-            networkService.fetchData(url: imageUrl) { data in
-                let image = UIImage(data: data)
-                self.cityImage = image
-                self.spinner.stopAnimating()
-                self.setupView()
-            }
+            self?.cityImage = image
         }
     }
 }

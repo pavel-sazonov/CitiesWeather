@@ -10,8 +10,11 @@ import UIKit
 
 final class CitiesTableViewController: UITableViewController {
     
+    // MARK: - Model
     private var cities = [City]()
-    private var weatherService = WeatherService()
+    
+    // MARK: - Properties
+    private let weatherService = WeatherService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
