@@ -19,6 +19,9 @@ final class CityViewController: UIViewController {
     
     // MARK: - Views
     private weak var spinner: UIActivityIndicatorView!
+    private weak var cityImageView: UIImageView!
+    private weak var dimCityImageView: UIView!
+    private weak var tempLabel: UILabel!
     
     private weak var cityImage: UIImage! {
         didSet {
@@ -57,6 +60,7 @@ final class CityViewController: UIViewController {
         cityImageView.contentMode = .scaleAspectFill
         cityImageView.alpha = 0
         view.addSubview(cityImageView)
+        self.cityImageView = cityImageView
         
         let dimCityImageView = UIView()
         dimCityImageView.backgroundColor = UIColor.black
@@ -64,6 +68,7 @@ final class CityViewController: UIViewController {
         dimCityImageView.isOpaque = false
         dimCityImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dimCityImageView)
+        self.dimCityImageView = dimCityImageView
         
         let tempLabel = UILabel()
         if let temp = city?.forecast.temp { tempLabel.text = String(Int(temp.rounded())) + "°" }
@@ -73,6 +78,7 @@ final class CityViewController: UIViewController {
         tempLabel.alpha = 0
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tempLabel)
+        self.tempLabel = tempLabel
         
         UIView.animate(withDuration: 0.3) {
             cityImageView.alpha = 1
