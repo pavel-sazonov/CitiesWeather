@@ -11,67 +11,69 @@ import UIKit
 final class CitiesViewController: UIViewController {
     
     // MARK: - Model
-    private var cities = [City]()
+    
+    private var cities: [City] = []
     
     // MARK: - Views
-    private weak var tableView: UITableView!
-    private weak var refreshControl: UIRefreshControl!
-    private weak var messageLabel: UILabel!
+    
+    private let tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
+    private let messageLabel = UILabel()
     
     
     // MARK: - Properties
+    
     private let weatherService = WeatherService()
     
-    override func loadView() {
-        super.loadView()
-        
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.isHidden = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(tableView)
-        self.tableView = tableView
-        
-        let messageLabel = UILabel()
-        messageLabel.isHidden = true
-        messageLabel.text = "Something went wrong..."
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(messageLabel)
-        self.messageLabel = messageLabel
-        
-        NSLayoutConstraint.activate([
-            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),
-            self.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
-            self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
-            messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-    }
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Cities"
-        
         view.backgroundColor = .white
-        
-        self.tableView.register(CityCell.self, forCellReuseIdentifier: "cellId")
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
+        navigationItem.title = "Cities"
+        tableView.register(CityCell.self, forCellReuseIdentifier: "cellId")
+        tableView.dataSource = self
+        tableView.delegate = self
         
         setupRefreshControl()
+        setupSubviews()
         fetchWeatherData()
     }
     
+    
+    // MARK: - Methods
+    
+    private func setupSubviews() {
+        
+        tableView.isHidden = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        
+        messageLabel.isHidden = true
+        messageLabel.text = "Something went wrong..."
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(messageLabel)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
+            messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     private func setupRefreshControl() {
-        let refreshControl = UIRefreshControl()
         let title = "Pull to refresh"
         
         refreshControl.attributedTitle = NSAttributedString(string: title)
         refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
         
         tableView.refreshControl = refreshControl
-        self.refreshControl = refreshControl
     }
     
     @objc private func refreshWeatherData(_ sender: Any) {
@@ -108,7 +110,7 @@ final class CitiesViewController: UIViewController {
                     self.cities = cities
                     self.tableView.reloadRows(at: indexPathsForReload, with: .fade)
                 }
-                self.refreshControl?.endRefreshing()
+                self.refreshControl.endRefreshing()
             }
         }
     }
